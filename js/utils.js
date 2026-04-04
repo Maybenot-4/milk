@@ -462,6 +462,8 @@ async function importAllData(file) {
                     </div>
                 </div>
             `;
+            document.body.appendChild(overlay);
+            
             overlay.addEventListener('click', (ev) => { if (ev.target === overlay) { overlay.remove(); resolve(null); } });
             const fullImpCancelBtn = document.getElementById('full-imp-cancel');
             const fullImpConfirmBtn = document.getElementById('full-imp-confirm');
@@ -472,7 +474,6 @@ async function importAllData(file) {
                 overlay.remove();
                 resolve(selected);
             };
-            document.body.appendChild(overlay);
         });
 
         const selectedCats = await pickSelected();
