@@ -635,13 +635,13 @@ function updateCloudSyncStatusUI(state) {
 function askSupabaseConfigSimple() {
     const existing = getCloudSyncConfig() || {};
     const url = prompt(
-        '【配置第 1/2 步】\n请粘贴你的 Project URL\n\n获取位置：\n在 Supabase 界面最左侧的菜单中找到并点击【Integrations】→【Data API】，在 API URL 下方点击 "Copy" 按钮。',
+        '【配置第 1/2 步】\n请粘贴你的 Project URL\n\n请在界面最左侧的\nIntegrations————Data API————API URL，点击copy，返回填写此url',
         existing.url || ''
     );
     if (url === null) return null;
 
     const anonKey = prompt(
-        '【配置第 2/2 步】\n请粘贴你的 Publishable key (anon key)\n\n获取位置：\n在 Supabase 界面最左侧的菜单中找到并点击【齿轮图标 Project settings】→【API】，在 "Project API keys" 部分找到 "Publishable key"，点击 "Copy" 按钮。',
+        '【配置第 2/2 步】\n请粘贴你的 Publishable key (anon key)\n\n请在界面最左侧的Project settings——Settings——API Keys——Publishable key，点击copy，返回填写此url',
         existing.anonKey || ''
     );
     if (anonKey === null) return null;
@@ -687,26 +687,14 @@ CREATE TABLE public.chat_backups (
 ALTER TABLE public.chat_backups DISABLE ROW LEVEL SECURITY;`;
 
     alert(
-        '【云同步设置教程】\n\n' +
-        '请严格按照以下步骤设置云同步，全程大约需要 5-10 分钟。\n\n' +
-        '----------\n\n' +
-        '第 ① 步：注册并创建云数据库\n\n' +
-        '1. 点击“云端备份同步”最右侧的箭头，打开 Supabase 网站，使用 GitHub 账户或邮箱注册一个免费账户。\n' +
-        '2. 注册完跳转到创建组织（Organization）的界面，直接点击 "Create organization" 跳过即可。\n' +
-        '3. 此时会直接弹出一个创建项目的界面。请按如下设置：\n' +
-        '   - Project name: 随便取个名字\n' +
-        '   - Database Password: 设置一个复杂的密码并记住它\n' +
-        '   - Region: 选择一个离你近的地区\n' +
-        '   - 勾选 "Enable Data API" 和 "Enable automatic RLS"\n' +
-        '4. 点击 "Create new project"，然后耐心等待约 5 分钟，直到项目状态（Status）显示为 "Active / Healthy"。\n\n' +
-        '----------\n\n' +
-        '第 ② 步：运行 SQL 代码以创建数据表\n\n' +
-        '1. 在项目页面最左侧菜单中，找到一个数据库图标，点击进入 "SQL Editor"。\n' +
-        '2. 点击 "+ New query" 创建一个新的查询。\n' +
-        '3. 将下一个弹窗中提供的 SQL 代码完整地复制并粘贴到右边的大框里。\n' +
-        '4. 点击绿色的 "RUN" 按钮执行。如果看到 "Success. No rows returned" 的提示，就说明成功了。\n\n' +
-        '----------\n\n' +
-        '第 ③ 步：获取并填写配置信息\n\n' +
+        '【云同步设置教程】\n' +
+        '请严格按照以下步骤设置云同步，全程大约需要 5-10 分钟。\n' +
+        '\n【第一步：注册并创建项目】\n' +
+        '点击云端备份同步最右侧的箭头，打开supabase网站，使用gihub账户或者邮箱注册一个免费账户，注册完跳转到创建组织/是否个人，直接点击create跳过。\n' +
+        '刚注册会直接弹出一个project的创建界面，Project name自己随便取个名字，Database password记住写个复杂的密码，而且要记住，1. Enable Data API选：开启。2. Enable automatic RLS开启，其他不用管，点击create new project。\n' +
+        '\n【第二步：运行 SQL 代码】\n' +
+        '刚创建完 Project 后，不要立刻操作。等待五分钟，status显示healthy后，在最左侧找到SQL Editor点击，将下一个弹窗提供的SQL代码完整复制到右边的大框里，点击绿色的run按钮，返回Succecc.No rows returned。\n' +
+        '\n【第三步：获取并填写配置信息】\n' +
         '完成前两步后，关闭本教程，再次点击“云端备份同步”那一行，会弹出输入框让你填写配置信息。'
     );
     prompt("【第 ② 步】请复制下面的全部 SQL 代码，然后在 Supabase SQL Editor 中运行：", sqlCode);
